@@ -181,49 +181,33 @@ namespace Warcraft.ADT.Chunks.Subchunks
 					this.MapIndexY = br.ReadUInt32();
 					this.TextureLayerCount = br.ReadUInt32();
 					this.ModelReferenceCount = br.ReadUInt32();
-
-					if (this.Flags.HasFlag(MapChunkFlags.UsesHighResHoles))
-					{
-						this.HighResHoles = br.ReadUInt64();
-					}
-
 					this.HeightmapOffset = br.ReadUInt32();
 					this.VertexNormalOffset = br.ReadUInt32();
 					this.TextureLayersOffset = br.ReadUInt32();
 					this.ModelReferencesOffset = br.ReadUInt32();
 					this.AlphaMapsOffset = br.ReadUInt32();
 					this.AlphaMapsSize = br.ReadUInt32();
-					this.BakedShadowsOffset = br.ReadUInt32();
-					this.BakedShadowsSize = br.ReadUInt32();
-
 					this.AreaID = br.ReadUInt32();
 					this.WorldModelObjectReferenceCount = br.ReadUInt32();
-
-					// TODO: Turn into bitmapped boolean field
-					if (!this.Flags.HasFlag(MapChunkFlags.UsesHighResHoles))
-					{
-						this.LowResHoles = br.ReadUInt16();
-					}
-
+          this.LowResHoles = br.ReadUInt16();
 					this.Unknown = br.ReadUInt16();
 
-					// TODO: This is a set of 8 by 8 2-bit integers. Shift and read into a byte array.
-					this.LowResTextureMap = br.ReadUInt16();
+          // FIXME: Do something with this array.
+          for (int i = 0; i < 8; i++)
+          {
+            this.LowResTextureMap = br.ReadUInt16();
+          }
 
 					this.PredTex = br.ReadUInt32();
 					this.NoEffectDoodad = br.ReadUInt32();
-
 					this.SoundEmittersOffset = br.ReadUInt32();
 					this.SoundEmitterCount = br.ReadUInt32();
 					this.LiquidOffset = br.ReadUInt32();
 					this.LiquidSize = br.ReadUInt32();
-
 					this.MapTilePosition = br.ReadVector3();
-
-					if (this.Flags.HasFlag(MapChunkFlags.HasVertexShading))
-					{
-						this.VertexShadingOffset = br.ReadUInt32();
-					}
+          br.ReadUInt32();
+          br.ReadUInt32();
+          br.ReadUInt32();
 				}
 			}
 		}
