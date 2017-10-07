@@ -66,7 +66,7 @@ namespace Warcraft.ADT.Chunks.Subchunks
 			{
 				using (BinaryReader br = new BinaryReader(ms))
 				{
-					for (int y = 0; y < 16; ++y)
+					for (int y = 0; y < 17; ++y)
 					{
 						if (y % 2 == 0)
 						{
