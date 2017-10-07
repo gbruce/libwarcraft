@@ -127,48 +127,51 @@ namespace Warcraft.ADT
 					// Read Version Chunk
 					this.Version = br.ReadIFFChunk<TerrainVersion>();
 
+          // The chunk offsets are from the start of the header and do not include the chunk type and size(8 bytes).
+          long offsetStart = br.BaseStream.Position + 8;
+
 					// Read the header chunk
 					this.Header = br.ReadIFFChunk<TerrainHeader>();
 
 					if (this.Header.MapChunkOffsetsOffset > 0)
 					{
-						br.BaseStream.Position = this.Header.MapChunkOffsetsOffset;
+						br.BaseStream.Position = this.Header.MapChunkOffsetsOffset + offsetStart;
 						this.MapChunkOffsets = br.ReadIFFChunk<TerrainMapChunkOffsets>();
 					}
 
 					if (this.Header.TexturesOffset > 0)
 					{
-						br.BaseStream.Position = this.Header.TexturesOffset;
+						br.BaseStream.Position = this.Header.TexturesOffset + offsetStart;
 						this.Textures = br.ReadIFFChunk<TerrainTextures>();
 					}
 
 					if (this.Header.ModelsOffset > 0)
 					{
-						br.BaseStream.Position = this.Header.ModelsOffset;
+						br.BaseStream.Position = this.Header.ModelsOffset + offsetStart;
 						this.Models = br.ReadIFFChunk<TerrainModels>();
 					}
 
 					if (this.Header.ModelIndicesOffset > 0)
 					{
-						br.BaseStream.Position = this.Header.ModelIndicesOffset;
+						br.BaseStream.Position = this.Header.ModelIndicesOffset + offsetStart;
 						this.ModelIndices = br.ReadIFFChunk<TerrainModelIndices>();
 					}
 
 					if (this.Header.WorldModelObjectsOffset > 0)
 					{
-						br.BaseStream.Position = this.Header.WorldModelObjectsOffset;
+						br.BaseStream.Position = this.Header.WorldModelObjectsOffset + offsetStart;
 						this.WorldModelObjects = br.ReadIFFChunk<TerrainWorldModelObjects>();
 					}
 
 					if (this.Header.WorldModelObjectIndicesOffset > 0)
 					{
-						br.BaseStream.Position = this.Header.WorldModelObjectIndicesOffset;
+            br.BaseStream.Position = this.Header.WorldModelObjectIndicesOffset + offsetStart;
 						this.WorldModelObjectIndices = br.ReadIFFChunk<TerrainWorldObjectModelIndices>();
 					}
 
 					if (this.Header.LiquidOffset > 0)
 					{
-						br.BaseStream.Position = this.Header.LiquidOffset;
+						br.BaseStream.Position = this.Header.LiquidOffset + offsetStart;
 						this.Liquids = br.ReadIFFChunk<TerrainLiquid>();
 						// TODO: [#9] Pass in DBC liquid type to load the vertex data
 					}
