@@ -55,6 +55,11 @@ namespace Warcraft.ADT.Chunks
 
 		public void LoadBinaryData(byte[] inData)
         {
+      if(inData.Length == 0)
+      {
+        return;
+      }
+
         	using (MemoryStream ms = new MemoryStream(inData))
 			{
 				using (BinaryReader br = new BinaryReader(ms))
